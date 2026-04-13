@@ -4,10 +4,7 @@ import guru.springframework.spring6restmvc.entities.Beer;
 import guru.springframework.spring6restmvc.model.BeerDTO;
 import org.mapstruct.Mapper;
 
-/**
- * Created by jt, Spring Framework Guru.
- */
-@Mapper
+@Mapper(componentModel = "spring")
 public interface BeerMapper {
 
     Beer beerDtoToBeer(BeerDTO dto);
