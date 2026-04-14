@@ -1,10 +1,42 @@
-#services:
-#  mysql:
-#    image: 'mysql:latest'
-#    environment:
-#      - 'MYSQL_DATABASE=mydatabase'
-#      - 'MYSQL_PASSWORD=secret'
-#      - 'MYSQL_ROOT_PASSWORD=verysecret'
-#      - 'MYSQL_USER=myuser'
-#    ports:
-#      - '3306'
+services:
+  postgres:
+    image: postgres:16.3
+    container_name: spring7-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: beerDB
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: mahshoq
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d beerDB"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: spring7-app
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      SPRING_PROFILES_ACTIVE: localpostgres
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/beerDB
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: mahshoq
+      SPRING_FLYWAY_URL: jdbc:postgresql://postgres:5432/beerDB
+      SPRING_FLYWAY_USER: postgres
+      SPRING_FLYWAY_PASSWORD: mahshoq
+      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: http://host.docker.internal:9000
+    ports:
+      - "8080:8080"
+
+volumes:
+  postgres_data:

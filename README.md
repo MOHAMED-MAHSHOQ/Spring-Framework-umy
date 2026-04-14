@@ -5,7 +5,8 @@ This repository is for an example application built in my [Spring Framework 6 - 
 
 The application is a simple Spring Boot 3 / Spring Framework 6 web application. It is used to help students learn how
 to use the Spring Framework. Step by step instructions and detailed explanations can be found within the course.
-
+set JAVA_HOME=C:\Users\mohamed.ms\.jdks\temurin-21.0.10
+set PATH=%JAVA_HOME%\bin;%PATH%
 As you work through the course, please feel free to fork this repository to your out GitHub repo. Most links contain links
 to source code changes. If you encounter a problem you can compare your code to the lesson code. [See this link for help with compares](https://github.com/springframeworkguru/spring5webapp/wiki#getting-an-error-but-cannot-find-what-is-different-from-lesson-source-code)
 
@@ -59,3 +60,6 @@ Got a question about your Spring Framework 6 course? [Checkout these FAQs!](http
 * Like Spring Framework Guru on [Facebook](https://www.facebook.com/springframeworkguru/)
 * Follow Spring Framework Guru on [Twitter](https://twitter.com/spring_guru)
 * Connect with John Thompson on [LinkedIn](http://www.linkedin.com/in/springguru)
+
+set JAVA_HOME=C:\Users\mohamed.ms\.jdks\temurin-21.0.10
+set PATH=%JAVA_HOME%\bin;%PATH%
