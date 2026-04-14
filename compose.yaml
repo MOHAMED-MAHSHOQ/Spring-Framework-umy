@@ -17,6 +17,16 @@ services:
       timeout: 5s
       retries: 10
 
+
+  auth-server:
+    build:
+      context: ../spring-6-auth-server
+      dockerfile: Dockerfile
+    container_name: spring7-auth-server
+    ports:
+      - "9000:9000"
+
+
   app:
     build:
       context: .
@@ -34,9 +44,12 @@ services:
       SPRING_FLYWAY_URL: jdbc:postgresql://postgres:5432/beerDB
       SPRING_FLYWAY_USER: postgres
       SPRING_FLYWAY_PASSWORD: mahshoq
-      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: http://host.docker.internal:9000
+#      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: http://localhost:9000
+      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI: http://spring7-auth-server:9000/oauth2/jwks
+      LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_SECURITY: DEBUG
     ports:
       - "8080:8080"
+
 
 volumes:
   postgres_data:
